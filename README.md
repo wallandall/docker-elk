@@ -6,18 +6,13 @@ The **.env** file is your environment variable file and is used to define your e
 
 1. \${VERSION}
    1. specifies the version eg: 7.4.1
-2. \${ELASTICSEARCH_NODE_1}
-   1. Name of the elasticsearch node1. Should correspond tot eh service eg es01
-3. \${ELASTICSEARCH_NODE_2}
-   1. Name of the elasticsearch node2. Should correspond tot eh service eg es02
-4. \${ELASTIC_SEARCH_CLUSTER_NAME}
+2. \${ELASTIC_SEARCH_CLUSTER_NAME}
    1. Name of the elastic search cluster
-5. \${ELASTIC_PORTS}
+3. \${ELASTIC_PORTS}
    1. Default port: 9200:9200
-6. \${KIBANA_NAME=kibana}
-7. \${KIBANA_SERVER_NAME}
+4. \${KIBANA_SERVER_NAME}
    1. Default is kibana.local
-8. \${KIBANA_PORTS}
+5. \${KIBANA_PORTS}
    1. Default port is 5601:5601
 
 ## Usage
