@@ -2,11 +2,11 @@ version: "2.2"
 services:
   es01: #Elasticsearch node 1
     image: docker.elastic.co/elasticsearch/elasticsearch:${VERSION}
-    container_name: ${ELASTICSEARCH_NODE_1}
+    container_name: es01
     environment:
-      - node.name=${ELASTICSEARCH_NODE_1}
-      - discovery.seed_hosts=${ELASTICSEARCH_NODE_2}
-      - cluster.initial_master_nodes=${ELASTICSEARCH_NODE_1},${ELASTICSEARCH_NODE_2}
+      - node.name=es01
+      - discovery.seed_hosts=es02
+      - cluster.initial_master_nodes=es01,es02
       - cluster.name=${ELASTIC_SEARCH_CLUSTER_NAME}
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
@@ -22,11 +22,11 @@ services:
       - esnet
   es02: #Elasticsearch node 1
     image: docker.elastic.co/elasticsearch/elasticsearch:${VERSION}
-    container_name: ${ELASTICSEARCH_NODE_2}
+    container_name: es02
     environment:
-      - node.name=${ELASTICSEARCH_NODE_2}
-      - discovery.seed_hosts=${ELASTICSEARCH_NODE_1}
-      - cluster.initial_master_nodes=${ELASTICSEARCH_NODE_1},${ELASTICSEARCH_NODE_2}
+      - node.name=es02
+      - discovery.seed_hosts=es01
+      - cluster.initial_master_nodes=es01,es02
       - cluster.name=${ELASTIC_SEARCH_CLUSTER_NAME}
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
@@ -41,10 +41,10 @@ services:
 
   kibana: #Kibana
     image: docker.elastic.co/kibana/kibana:${VERSION}
-    container_name: ${KIBANA_NAME}
+    container_name: kibana
     environment:
       SERVER_NAME: ${KIBANA_SERVER_NAME}
-      ELASTICSEARCH_HOSTS: http://${ELASTICSEARCH_NODE_1}:${ELASTIC_PORTS}
+      ELASTICSEARCH_HOSTS: http://es01:${ELASTIC_PORTS}
     ports:
       - ${KIBANA_PORTS}
     networks:
