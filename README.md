@@ -42,5 +42,5 @@ Once running, Kibana can be accessed by going to http://localhost:5601. 5601 is 
 
 ## Additional Commands
 
-- To view all images run : `docker-compose images
+- To view all images run : `docker-compose images`
 - To get shell access to a server type: `docker-compose exec container-name command` - e.g:. `docker-compose exec owncloud /bin/bash`
