@@ -16,10 +16,12 @@ services:
         hard: -1
     volumes:
       - esdata01:/usr/share/elasticsearch/data
+      - eslog01:/usr/share/elasticsearch/log
     ports:
       - ${ELASTIC_PORTS}
     networks:
       - esnet
+
   es02: #Elasticsearch node 1
     image: docker.elastic.co/elasticsearch/elasticsearch:${VERSION}
     container_name: es02
@@ -36,6 +38,7 @@ services:
         hard: -1
     volumes:
       - esdata02:/usr/share/elasticsearch/data
+      - eslog02:/usr/share/elasticsearch/log
     networks:
       - esnet
 
@@ -49,11 +52,32 @@ services:
       - ${KIBANA_PORTS}
     networks:
       - esnet
+    depends_on: 
+      - es01
+
+  logstash: #Logstash
+    image: docker.elastic.co/logstash/logstash:${VERSION}
+    volumes:
+      - logstash:/usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - ${LOGSTASH_PORT}
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    networks:
+      - esnet
+    depends_on: 
+      - es01
 
 volumes:
   esdata01:
     driver: local
+  eslog01:
+    driver: local
   esdata02:
+    driver: local
+  eslog02:
+    driver: local
+  logstash:
     driver: local
 
 networks:
